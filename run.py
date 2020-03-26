@@ -97,8 +97,8 @@ if __name__ == "__main__":
             print("--- %s seconds ---" % (time.time() - start_time))
             time.sleep(60)
         except Exception as e:
-            print(e)
-            time.sleep(2)
+            print(f'Test restarts. Error: {e}')
+            time.sleep(60)
 
 
 
