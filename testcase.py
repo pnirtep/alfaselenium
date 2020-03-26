@@ -91,11 +91,4 @@ class Eosago(unittest.TestCase):
         self.driver.close()
 
 if __name__ == "__main__":
-    while True:
-        try:
-            unittest.main()
-            time.sleep(60)
-        except Exception as e:
-            print(e)
-            unittest.main()
-            time.sleep(60)
+    unittest.main()

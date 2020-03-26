@@ -2,8 +2,10 @@ import time
 from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 def alfa_test():
@@ -14,19 +16,21 @@ def alfa_test():
 
     driver = webdriver.Chrome(options=options)
     action = ActionChains(driver)
+    wait = WebDriverWait(driver, 10)
 
     main_page = driver.get('https://www.alfastrah.ru/')
     driver.execute_script("window.scrollTo(0, 500)")
-    time.sleep(1)
+    # time.sleep(1)
     car_menu = driver.find_elements_by_class_name('calc__image')[0]
     action.move_to_element(car_menu).perform()
-    time.sleep(1)
+    # time.sleep(1)
     osago_calc = driver.find_elements_by_class_name('calc-popup__link_online')
     e = osago_calc[1].click()
-    time.sleep(3)
+    # time.sleep(3)
 
     try:
-        modal_close_button2 = driver.find_elements_by_class_name('modal__close')[-1].click()
+        modal_close_button2 = wait.until(EC.element_to_be_clickable((By.NAME, 'modal__close')))
+        driver.find_elements_by_class_name('modal__close')[-1].click()
     except Exception as ex:
         print(ex)
     try:
@@ -51,27 +55,21 @@ def alfa_test():
 
     driver.switch_to.default_content()
     driver.execute_script("window.scrollTo(0, 500)")
-    time.sleep(3)
+    # time.sleep(3)
 
     category_ts = driver.find_elements_by_class_name("select2-selection__arrow")[0].click()
     category_ts_value = driver.find_elements_by_class_name("select2-results__option")[2].click()
 
-    # marka = driver.find_elements_by_name('brand_name')[0].send_keys('Volkswagen')
     marka = driver.find_element_by_css_selector('.js-eosago-brand-name-input')
-    time.sleep(3)
-    marka.send_keys('Volkswagen')
-    time.sleep(3)
-    marka.send_keys(Keys.TAB)
+    time.sleep(1)
+    marka.send_keys('Volkswagen', Keys.TAB)
 
     model = driver.find_element_by_css_selector('.js-eosago-model-name-input')
-    time.sleep(3)
+    time.sleep(1)
     model.send_keys('Golf Plus')
-    time.sleep(3)
 
     year = driver.find_elements_by_class_name("select2-selection__arrow")[2].click()
     year_value = driver.find_elements_by_class_name("select2-results__option")[5].click()
-    time.sleep(3)
-
 
     arenda_check = driver.find_elements_by_class_name("checkbox__indicatior")[0]
     driver.execute_script("window.scrollTo(0, 700)")
@@ -91,8 +89,6 @@ def alfa_test():
 
     return
 
-
-
 if __name__ == "__main__":
     while True:
         try:
@@ -102,7 +98,7 @@ if __name__ == "__main__":
             time.sleep(60)
         except Exception as e:
             print(e)
-            time.sleep(60)
+            time.sleep(2)
 
 
 
