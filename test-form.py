@@ -11,15 +11,8 @@ options.add_experimental_option("prefs",prefs)
 driver = webdriver.Chrome(options=options)
 action = ActionChains(driver)
 
-main_page = driver.get('https://www.alfastrah.ru/')
-driver.execute_script("window.scrollTo(0, 500)")
-time.sleep(1)
-car_menu = driver.find_elements_by_class_name('calc__image')[0]
-action.move_to_element(car_menu).perform()
-time.sleep(1)
-osago_calc = driver.find_elements_by_class_name('calc-popup__link_online')
-e = osago_calc[1].click()
-time.sleep(3)
+main_page = driver.get('https://www.alfastrah.ru/individuals/auto/eosago/calc/')
+
 
 try:
     modal_close_button2 = driver.find_elements_by_class_name('modal__close')[-1].click()
@@ -32,20 +25,6 @@ try:
 except Exception as ex:
     print(ex)
 
-driver.execute_script("window.scrollTo(0, 500)")
-
-try:
-    modal_close_button2 = driver.find_elements_by_class_name('modal__close')[-1].click()
-except Exception as ex:
-    print(ex)
-try:
-    driver.switch_to.frame(driver.find_element_by_id("fl-237207"))
-    modal_close_button1 = driver.find_element_by_xpath('/html/body/div/div[3]/button[1]').click()
-
-except Exception as ex:
-    print(ex)
-
-driver.switch_to.default_content()
 driver.execute_script("window.scrollTo(0, 500)")
 time.sleep(3)
 
@@ -83,6 +62,9 @@ win_code.send_keys('KNDJC733545301768')
 
 button = driver.find_element_by_css_selector('.js-eosago-step1-form-auto-submit')
 button.click()
+
+
+
 
 
 
